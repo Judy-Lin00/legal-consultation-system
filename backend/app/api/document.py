@@ -10,6 +10,7 @@ from app.services.document_service import (
     get_sessions_with_confirmed_case,
     get_case_info_from_session,
     get_user_documents,
+    delete_document,
     match_templates_for_case,
     check_case_sufficient_for_doc,
     generate_document_draft,
@@ -118,6 +119,14 @@ async def generate_document(
         "doc_id": doc_id,
         "can_download": len(missing) == 0,
     }
+
+
+@router.delete("/document/{doc_id}")
+async def delete_user_document(doc_id: str, user_id: str = Depends(get_current_user_id)):
+    """删除文书记录"""
+    if not delete_document(user_id, doc_id):
+        raise HTTPException(status_code=404, detail="文档不存在")
+    return {"ok": True}
 
 
 @router.get("/document/download/{doc_id}")

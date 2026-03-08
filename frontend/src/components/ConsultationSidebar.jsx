@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { PlusOutlined, LeftOutlined, RightOutlined, MessageOutlined, ToolOutlined, SearchOutlined, FileTextOutlined } from '@ant-design/icons'
+import { PlusOutlined, LeftOutlined, RightOutlined, MessageOutlined, ToolOutlined, SearchOutlined, FileTextOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { api } from '../api/axios'
 import {
   newConversation,
   setCurrentSession,
   setSessions,
+  triggerSessionsRefetch,
 } from '../store/slices/consultationSlice'
 import './ConsultationSidebar.css'
 
@@ -91,6 +92,29 @@ export default function ConsultationSidebar({ collapsed, onToggle }) {
 
   const consultSessions = (sessions || []).filter((s) => !s.case_status)
   const caseSessions = (sessions || []).filter((s) => s.case_status)
+
+  const handleDeleteSession = async (e, sessionId) => {
+    e.stopPropagation()
+    try {
+      await api.delete(`/api/sessions/${sessionId}`)
+      if (sessionId === currentSessionId) {
+        dispatch(newConversation())
+      }
+      dispatch(triggerSessionsRefetch())
+    } catch {
+      // ignore
+    }
+  }
+
+  const handleDeleteDocument = async (e, docId) => {
+    e.stopPropagation()
+    try {
+      await api.delete(`/api/document/${docId}`)
+      fetchDocuments()
+    } catch {
+      // ignore
+    }
+  }
 
   const handleDownloadDocument = async (docId) => {
     try {
@@ -213,18 +237,30 @@ export default function ConsultationSidebar({ collapsed, onToggle }) {
                   <p className="consult-sidebar-history-empty">暂无咨询记录</p>
                 ) : (
                   consultSessions.map((s) => (
-                    <button
+                    <div
                       key={s.session_id}
-                      type="button"
                       className={`consult-sidebar-history-item ${currentSessionId === s.session_id ? 'active' : ''}`}
-                      onClick={() => handleSelectSession(s.session_id)}
                     >
-                      <MessageOutlined className="consult-sidebar-history-icon" />
-                      <div className="consult-sidebar-history-content">
-                        <span className="consult-sidebar-history-title-text">{s.title}</span>
-                        <span className="consult-sidebar-history-time">{formatTime(s.updated_at || s.created_at)}</span>
-                      </div>
-                    </button>
+                      <button
+                        type="button"
+                        className="consult-sidebar-history-item-main"
+                        onClick={() => handleSelectSession(s.session_id)}
+                      >
+                        <MessageOutlined className="consult-sidebar-history-icon" />
+                        <div className="consult-sidebar-history-content">
+                          <span className="consult-sidebar-history-title-text">{s.title}</span>
+                          <span className="consult-sidebar-history-time">{formatTime(s.updated_at || s.created_at)}</span>
+                        </div>
+                      </button>
+                      <button
+                        type="button"
+                        className="consult-sidebar-history-item-delete"
+                        title="删除"
+                        onClick={(e) => handleDeleteSession(e, s.session_id)}
+                      >
+                        <DeleteOutlined />
+                      </button>
+                    </div>
                   ))
                 )
               ) : historyTab === 'case' ? (
@@ -234,18 +270,30 @@ export default function ConsultationSidebar({ collapsed, onToggle }) {
                   <p className="consult-sidebar-history-empty">暂无案情记录</p>
                 ) : (
                   caseSessions.map((s) => (
-                    <button
+                    <div
                       key={s.session_id}
-                      type="button"
                       className={`consult-sidebar-history-item ${currentSessionId === s.session_id ? 'active' : ''}`}
-                      onClick={() => handleSelectSession(s.session_id)}
                     >
-                      <MessageOutlined className="consult-sidebar-history-icon" />
-                      <div className="consult-sidebar-history-content">
-                        <span className="consult-sidebar-history-title-text">{s.title}</span>
-                        <span className="consult-sidebar-history-time">{formatTime(s.updated_at || s.created_at)}</span>
-                      </div>
-                    </button>
+                      <button
+                        type="button"
+                        className="consult-sidebar-history-item-main"
+                        onClick={() => handleSelectSession(s.session_id)}
+                      >
+                        <MessageOutlined className="consult-sidebar-history-icon" />
+                        <div className="consult-sidebar-history-content">
+                          <span className="consult-sidebar-history-title-text">{s.title}</span>
+                          <span className="consult-sidebar-history-time">{formatTime(s.updated_at || s.created_at)}</span>
+                        </div>
+                      </button>
+                      <button
+                        type="button"
+                        className="consult-sidebar-history-item-delete"
+                        title="删除"
+                        onClick={(e) => handleDeleteSession(e, s.session_id)}
+                      >
+                        <DeleteOutlined />
+                      </button>
+                    </div>
                   ))
                 )
               ) : (
@@ -255,18 +303,27 @@ export default function ConsultationSidebar({ collapsed, onToggle }) {
                   <p className="consult-sidebar-history-empty">暂无文书记录</p>
                 ) : (
                   documents.map((d) => (
-                    <button
-                      key={d.doc_id}
-                      type="button"
-                      className="consult-sidebar-history-item"
-                      onClick={() => handleDownloadDocument(d.doc_id)}
-                    >
-                      <FileTextOutlined className="consult-sidebar-history-icon" />
-                      <div className="consult-sidebar-history-content">
-                        <span className="consult-sidebar-history-title-text">{d.title}</span>
-                        <span className="consult-sidebar-history-time">{formatTime(d.created_at)}</span>
-                      </div>
-                    </button>
+                    <div key={d.doc_id} className="consult-sidebar-history-item">
+                      <button
+                        type="button"
+                        className="consult-sidebar-history-item-main"
+                        onClick={() => handleDownloadDocument(d.doc_id)}
+                      >
+                        <FileTextOutlined className="consult-sidebar-history-icon" />
+                        <div className="consult-sidebar-history-content">
+                          <span className="consult-sidebar-history-title-text">{d.title}</span>
+                          <span className="consult-sidebar-history-time">{formatTime(d.created_at)}</span>
+                        </div>
+                      </button>
+                      <button
+                        type="button"
+                        className="consult-sidebar-history-item-delete"
+                        title="删除"
+                        onClick={(e) => handleDeleteDocument(e, d.doc_id)}
+                      >
+                        <DeleteOutlined />
+                      </button>
+                    </div>
                   ))
                 )
               )}

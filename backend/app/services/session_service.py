@@ -86,6 +86,13 @@ def get_user_sessions(user_id: str, limit: int = 50) -> list:
     ]
 
 
+def delete_session(user_id: str, session_id: str) -> bool:
+    """删除会话，校验归属"""
+    db = get_db()
+    result = db["sessions"].delete_one({"session_id": session_id, "user_id": user_id})
+    return result.deleted_count > 0
+
+
 def get_session(user_id: str, session_id: str) -> Optional[dict]:
     """获取会话详情（含消息、案情状态），校验归属"""
     db = get_db()

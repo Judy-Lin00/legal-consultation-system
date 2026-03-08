@@ -220,6 +220,13 @@ _TEMPLATE_TITLES = {
 }
 
 
+def delete_document(user_id: str, doc_id: str) -> bool:
+    """删除文书记录，校验归属"""
+    db = get_db()
+    result = db["document_downloads"].delete_one({"doc_id": doc_id, "user_id": user_id})
+    return result.deleted_count > 0
+
+
 def get_user_documents(user_id: str, limit: int = 50) -> list:
     """获取用户的文书生成记录列表"""
     db = get_db()

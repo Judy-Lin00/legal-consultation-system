@@ -1,7 +1,7 @@
 """咨询会话 API"""
 from fastapi import APIRouter, Depends, HTTPException
 
-from app.services.session_service import get_user_sessions, get_session
+from app.services.session_service import get_user_sessions, get_session, delete_session
 from app.core.deps import get_current_user_id
 
 router = APIRouter()
@@ -21,3 +21,11 @@ async def get_session_detail(session_id: str, user_id: str = Depends(get_current
     if not session:
         raise HTTPException(status_code=404, detail="会话不存在")
     return session
+
+
+@router.delete("/sessions/{session_id}")
+async def delete_session_api(session_id: str, user_id: str = Depends(get_current_user_id)):
+    """删除会话"""
+    if not delete_session(user_id, session_id):
+        raise HTTPException(status_code=404, detail="会话不存在")
+    return {"ok": True}
