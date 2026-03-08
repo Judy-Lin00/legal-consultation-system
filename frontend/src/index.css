@@ -32,6 +32,15 @@ body {
   min-height: 100vh;
 }
 
+/* 可滚动但滚动条不可见 */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;

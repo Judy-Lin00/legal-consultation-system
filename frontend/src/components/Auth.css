@@ -74,6 +74,14 @@
   min-height: 100vh;
 }
 
+/* 字体=大时：放宽两栏布局宽度 */
+[data-text-size="large"] .login-layout {
+  max-width: 2000px;
+}
+[data-text-size="large"] .login-intro {
+  max-width: 560px;
+}
+
 .login-left {
   position: relative;
   display: flex;

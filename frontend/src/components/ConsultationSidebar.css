@@ -14,6 +14,10 @@
   overflow: hidden;
 }
 
+.consult-sidebar-history-tab {
+  white-space: nowrap;
+}
+
 .consult-sidebar-collapsed {
   width: 64px;
   min-width: 64px;
@@ -196,8 +200,14 @@ button.consult-sidebar-nav-item:hover {
 
 .consult-sidebar-history-list {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   padding: 0 0.5rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.consult-sidebar-history-list::-webkit-scrollbar {
+  display: none;
 }
 
 .consult-sidebar-history-empty {

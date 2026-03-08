@@ -1,12 +1,141 @@
 /* 咨询页面样式 - 落地页使用 LandingPage.css */
 
-/* 无障碍：字号设置（面向弱势群体） */
-[data-text-size="small"] .consult-page {
-  font-size: 14px;
+/* 无障碍：字号通过根元素 rem 控制
+ * 小=0.75rem(12px)，中=1rem(16px)，大=1.75rem(28px)
+ * 在 AccessibilityContext 中设置 document.documentElement.style.fontSize
+ */
+.consultation-header-title.ant-typography {
+  font-size: 1.25rem !important;
 }
-[data-text-size="medium"] .consult-page {
-  font-size: 16px;
+
+/* 大字号：对话内容占满右边栏 */
+[data-text-size="large"] .consultation-layout .consult-main {
+  max-width: none;
+  padding: 0 1rem;
 }
-[data-text-size="large"] .consult-page {
-  font-size: 18px;
+[data-text-size="large"] .consultation-layout .consult-main-wide {
+  max-width: none;
+}
+
+/* 大字号：左侧边栏加宽，历史 Tab 完全展示 */
+[data-text-size="large"] .consultation-layout .consult-sidebar {
+  width: 400px;
+  min-width: 400px;
+  max-width: 400px;
+}
+[data-text-size="large"] .consultation-layout .consult-sidebar-history-tab {
+  font-size: 0.85rem;
+}
+
+/* ========== 大字号：全局布局优化 ========== */
+
+/* 1. 首页：开始咨询按钮保持居中 */
+[data-text-size="large"] .hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem 4rem;
+}
+[data-text-size="large"] .hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* 2. 选择服务页：三个按钮并列一页展示 */
+[data-text-size="large"] .consultation-layout .consult-home,
+[data-text-size="large"] .consult-home {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+[data-text-size="large"] .consult-home::-webkit-scrollbar {
+  display: none;
+}
+[data-text-size="large"] .consultation-layout .consult-home-grid,
+[data-text-size="large"] .consult-home-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1.5rem;
+  justify-content: center;
+  max-width: none;
+}
+
+/* 3. 主页面侧边栏：平铺展示，历史列表可滚动 */
+[data-text-size="large"] .consultation-layout .consult-sidebar {
+  overflow: hidden;
+  max-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+}
+[data-text-size="large"] .consultation-layout .consult-sidebar-history {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+[data-text-size="large"] .consultation-layout .consult-sidebar-history-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+[data-text-size="large"] .consultation-layout .consult-sidebar-history-list::-webkit-scrollbar {
+  display: none;
+}
+
+/* 4. 问答页面：提问和输入框一页展示 */
+[data-text-size="large"] .consultation-layout .consultation-content {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+[data-text-size="large"] .consultation-layout .consult-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+[data-text-size="large"] .consultation-layout .consult-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+[data-text-size="large"] .consultation-layout .consult-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 1rem 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+[data-text-size="large"] .consultation-layout .consult-content::-webkit-scrollbar {
+  display: none;
+}
+[data-text-size="large"] .consultation-layout .consult-input-wrap {
+  flex-shrink: 0;
+}
+
+/* 5. 大字号：隐藏介绍、输入框缩小、footer 减小 padding */
+[data-text-size="large"] .consultation-layout .consult-intro {
+  display: none;
+}
+[data-text-size="large"] .consultation-layout .consult-input-area textarea {
+  min-height: 2.5em;
+  overflow-y: auto;
+}
+[data-text-size="large"] .consultation-layout .consult-footer {
+  padding: 0.5rem 1.5rem;
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { PlusOutlined, LeftOutlined, RightOutlined, MessageOutlined, ToolOutlined, SearchOutlined, FileTextOutlined, DeleteOutlined } from '@ant-design/icons'
+import { PlusOutlined, LeftOutlined, RightOutlined, MessageOutlined, ToolOutlined, FileTextOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { api } from '../api/axios'
 import {
@@ -187,20 +187,6 @@ export default function ConsultationSidebar({ collapsed, onToggle }) {
                 <small>在线工具帮你解决法律问题</small>
               </div>
             </button>
-            <div className="consult-sidebar-nav-item" title="功能开发中">
-              <SearchOutlined />
-              <div>
-                <span>案例检索</span>
-                <small>在线为您查找相关的案例</small>
-              </div>
-            </div>
-            <div className="consult-sidebar-nav-item" title="功能开发中">
-              <FileTextOutlined />
-              <div>
-                <span>我的报告</span>
-                <small>查看历史产生的所有报告</small>
-              </div>
-            </div>
           </nav>
 
           <div className="consult-sidebar-history">

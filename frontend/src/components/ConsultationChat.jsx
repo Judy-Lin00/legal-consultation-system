@@ -890,7 +890,7 @@ export default function ConsultationChat({ initialTab = 'consult' }) {
                     ? (caseSessionState?.case_status === 'gathering' ? '' : "请描述您的案情，包括当事人、时间地点、事实经过、争议焦点等")
                     : "您想咨询什么..."
                 }
-                rows={3}
+                rows={2}
                 disabled={loading}
               />
               <div className="consult-input-footer">
