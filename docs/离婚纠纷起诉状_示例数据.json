@@ -1,0 +1,101 @@
+{
+  "user_id": "user_xxx",
+  "session_id": "session_xxx",
+  "status": "draft",
+  "plaintiff": {
+    "name": "",
+    "gender": null,
+    "birth_date": "",
+    "ethnicity": "",
+    "work_unit": "",
+    "position": "",
+    "contact_phone": "",
+    "domicile": "",
+    "frequent_residence": "",
+    "id_type": "",
+    "id_number": ""
+  },
+  "agent": {
+    "has_agent": false,
+    "name": "",
+    "unit": "",
+    "position": "",
+    "contact_phone": "",
+    "authority": null
+  },
+  "defendant": {
+    "name": "",
+    "gender": null,
+    "birth_date": "",
+    "ethnicity": "",
+    "work_unit": "",
+    "position": "",
+    "contact_phone": "",
+    "domicile": "",
+    "frequent_residence": "",
+    "id_type": "",
+    "id_number": ""
+  },
+  "litigation_requests": {
+    "litigation_request_text": "",
+    "dissolve_marriage": true,
+    "common_property": {
+      "has_property": false,
+      "houses": "",
+      "cars": "",
+      "deposits": "",
+      "other": ""
+    },
+    "common_debt": {
+      "has_debt": false,
+      "debts": []
+    },
+    "child_custody": {
+      "has_issue": false,
+      "children": []
+    },
+    "child_support": {
+      "has_issue": false,
+      "responsible_party": null,
+      "amount_detail": "",
+      "payment_method": ""
+    },
+    "visitation_rights": {
+      "has_issue": false,
+      "exerciser": null,
+      "method": ""
+    },
+    "compensation": {
+      "has_issue": false,
+      "damages_amount": "",
+      "economic_compensation_amount": "",
+      "economic_assistance_amount": ""
+    },
+    "claim_litigation_fees": null,
+    "other_requests": {
+      "has_preservation": false,
+      "preservation_court": "",
+      "preservation_time": "",
+      "preservation_case_no": ""
+    }
+  },
+  "facts_and_reasons": {
+    "facts_reasons_text": "",
+    "marriage_basic_info": "",
+    "property_situation": "",
+    "debt_situation": "",
+    "custody_situation": "",
+    "support_situation": "",
+    "visitation_situation": "",
+    "compensation_situation": "",
+    "other": "",
+    "claim_basis": "",
+    "evidence_list": ""
+  },
+  "dispute_resolution_willingness": {
+    "understand_mediation": null,
+    "understand_mediation_benefits": null,
+    "consider_mediation": null
+  },
+  "signature_date": ""
+}

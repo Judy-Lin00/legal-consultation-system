@@ -1,0 +1,12 @@
+/* 咨询页面样式 - 落地页使用 LandingPage.css */
+
+/* 无障碍：字号设置（面向弱势群体） */
+[data-text-size="small"] .consult-page {
+  font-size: 14px;
+}
+[data-text-size="medium"] .consult-page {
+  font-size: 16px;
+}
+[data-text-size="large"] .consult-page {
+  font-size: 18px;
+}

@@ -1,0 +1,173 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "民事起诉状（离婚纠纷）",
+  "description": "离婚纠纷起诉状模板字段定义，对应 docs/离婚纠纷起诉状模板.md",
+  "type": "object",
+  "properties": {
+    "_id": { "type": "string", "description": "MongoDB 文档 ID" },
+    "user_id": { "type": "string", "description": "所属用户 ID" },
+    "session_id": { "type": "string", "description": "关联咨询会话 ID" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "submitted"],
+      "description": "状态：草稿 / 已提交"
+    },
+
+    "plaintiff": {
+      "type": "object",
+      "description": "原告",
+      "properties": {
+        "name": { "type": "string", "description": "姓名" },
+        "gender": { "type": "string", "enum": ["男", "女"], "description": "性别" },
+        "birth_date": { "type": "string", "description": "出生日期" },
+        "ethnicity": { "type": "string", "description": "民族" },
+        "work_unit": { "type": "string", "description": "工作单位" },
+        "position": { "type": "string", "description": "职务" },
+        "contact_phone": { "type": "string", "description": "联系电话" },
+        "domicile": { "type": "string", "description": "住所地（户籍所在地）" },
+        "frequent_residence": { "type": "string", "description": "经常居住地" },
+        "id_type": { "type": "string", "description": "证件类型" },
+        "id_number": { "type": "string", "description": "证件号码" }
+      }
+    },
+
+    "agent": {
+      "type": "object",
+      "description": "委托诉讼代理人",
+      "properties": {
+        "has_agent": { "type": "boolean", "description": "是否有代理人" },
+        "name": { "type": "string", "description": "姓名" },
+        "unit": { "type": "string", "description": "单位" },
+        "position": { "type": "string", "description": "职务" },
+        "contact_phone": { "type": "string", "description": "联系电话" },
+        "authority": { "type": "string", "enum": ["一般授权", "特别授权"], "description": "代理权限" }
+      }
+    },
+
+    "defendant": {
+      "type": "object",
+      "description": "被告",
+      "properties": {
+        "name": { "type": "string", "description": "姓名" },
+        "gender": { "type": "string", "enum": ["男", "女"], "description": "性别" },
+        "birth_date": { "type": "string", "description": "出生日期" },
+        "ethnicity": { "type": "string", "description": "民族" },
+        "work_unit": { "type": "string", "description": "工作单位" },
+        "position": { "type": "string", "description": "职务" },
+        "contact_phone": { "type": "string", "description": "联系电话" },
+        "domicile": { "type": "string", "description": "住所地（户籍所在地）" },
+        "frequent_residence": { "type": "string", "description": "经常居住地" },
+        "id_type": { "type": "string", "description": "证件类型" },
+        "id_number": { "type": "string", "description": "证件号码" }
+      }
+    },
+
+    "litigation_requests": {
+      "type": "object",
+      "description": "诉讼请求",
+      "properties": {
+        "litigation_request_text": { "type": "string", "description": "诉讼请求正文" },
+        "dissolve_marriage": { "type": "boolean", "description": "1. 解除婚姻关系" },
+        "common_property": {
+          "type": "object",
+          "description": "2. 夫妻共同财产",
+          "properties": {
+            "has_property": { "type": "boolean", "description": "是否有财产" },
+            "houses": { "type": "string", "description": "房屋明细及归属" },
+            "cars": { "type": "string", "description": "汽车明细及归属" },
+            "deposits": { "type": "string", "description": "存款明细及归属" },
+            "other": { "type": "string", "description": "其他财产" }
+          }
+        },
+        "common_debt": {
+          "type": "object",
+          "description": "3. 夫妻共同债务",
+          "properties": {
+            "has_debt": { "type": "boolean", "description": "是否有债务" },
+            "debts": { "type": "array", "items": { "type": "string" }, "description": "债务明细" }
+          }
+        },
+        "child_custody": {
+          "type": "object",
+          "description": "4. 子女直接抚养",
+          "properties": {
+            "has_issue": { "type": "boolean", "description": "是否有此问题" },
+            "children": { "type": "array", "items": { "type": "string" }, "description": "子女归属" }
+          }
+        },
+        "child_support": {
+          "type": "object",
+          "description": "5. 子女抚养费",
+          "properties": {
+            "has_issue": { "type": "boolean", "description": "是否有此问题" },
+            "responsible_party": { "type": "string", "enum": ["原告", "被告"], "description": "抚养费承担主体" },
+            "amount_detail": { "type": "string", "description": "金额及明细" },
+            "payment_method": { "type": "string", "description": "支付方式" }
+          }
+        },
+        "visitation_rights": {
+          "type": "object",
+          "description": "6. 探望权",
+          "properties": {
+            "has_issue": { "type": "boolean", "description": "是否有此问题" },
+            "exerciser": { "type": "string", "enum": ["原告", "被告"], "description": "探望权行使主体" },
+            "method": { "type": "string", "description": "行使方式" }
+          }
+        },
+        "compensation": {
+          "type": "object",
+          "description": "7. 离婚损害赔偿/离婚经济补偿/离婚经济帮助",
+          "properties": {
+            "has_issue": { "type": "boolean", "description": "是否有此问题" },
+            "damages_amount": { "type": "string", "description": "离婚损害赔偿金额" },
+            "economic_compensation_amount": { "type": "string", "description": "离婚经济补偿金额" },
+            "economic_assistance_amount": { "type": "string", "description": "离婚经济帮助金额" }
+          }
+        },
+        "claim_litigation_fees": { "type": "boolean", "description": "8. 是否主张诉讼费用" },
+        "other_requests": {
+          "type": "object",
+          "description": "9. 其他请求（诉前保全）",
+          "properties": {
+            "has_preservation": { "type": "boolean", "description": "是否已经诉前保全" },
+            "preservation_court": { "type": "string", "description": "保全法院" },
+            "preservation_time": { "type": "string", "description": "保全时间" },
+            "preservation_case_no": { "type": "string", "description": "保全案号" }
+          }
+        }
+      }
+    },
+
+    "facts_and_reasons": {
+      "type": "object",
+      "description": "事实与理由",
+      "properties": {
+        "facts_reasons_text": { "type": "string", "description": "事实与理由正文" },
+        "marriage_basic_info": { "type": "string", "description": "1. 婚姻关系基本情况" },
+        "property_situation": { "type": "string", "description": "2. 夫妻共同财产情况" },
+        "debt_situation": { "type": "string", "description": "3. 夫妻共同债务情况" },
+        "custody_situation": { "type": "string", "description": "4. 子女直接抚养情况" },
+        "support_situation": { "type": "string", "description": "5. 子女抚养费情况" },
+        "visitation_situation": { "type": "string", "description": "6. 子女探望权情况" },
+        "compensation_situation": { "type": "string", "description": "7. 赔偿/补偿/经济帮助相关情况" },
+        "other": { "type": "string", "description": "8. 其他" },
+        "claim_basis": { "type": "string", "description": "9. 请求依据" },
+        "evidence_list": { "type": "string", "description": "10. 证据清单（可另附页）" }
+      }
+    },
+
+    "dispute_resolution_willingness": {
+      "type": "object",
+      "description": "对纠纷解决方式的意愿",
+      "properties": {
+        "understand_mediation": { "type": "boolean", "description": "是否了解调解作为非诉讼纠纷解决方式" },
+        "understand_mediation_benefits": { "type": "boolean", "description": "是否了解先行调解解决纠纷的好处" },
+        "consider_mediation": { "type": "string", "enum": ["是", "否", "暂不确定"], "description": "是否考虑先行调解" }
+      }
+    },
+
+    "signature_date": { "type": "string", "description": "具状人签字日期" }
+  }
+}

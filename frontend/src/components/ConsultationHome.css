@@ -1,0 +1,91 @@
+/* 与首页一致的深色背景风格 */
+.consult-home {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 100%;
+  background: #0d1117;
+  color: #e6edf3;
+  overflow: hidden;
+}
+
+.consult-home::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.consult-home-title {
+  position: relative;
+  font-size: 1.25rem;
+  color: #e6edf3;
+  margin-bottom: 2rem;
+  z-index: 1;
+}
+
+.consult-home-grid {
+  position: relative;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 800px;
+  z-index: 1;
+}
+
+.consult-home-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 2.5rem;
+  min-width: 200px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+.consult-home-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(88, 166, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(88, 166, 255, 0.15);
+  transform: translateY(-4px);
+}
+
+.consult-home-card-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a5fb4 0%, #58a6ff 100%);
+  color: #fff;
+  border-radius: 14px;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.consult-home-card-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e6edf3;
+  margin-bottom: 0.5rem;
+}
+
+.consult-home-card-desc {
+  font-size: 0.9rem;
+  color: rgba(230, 237, 243, 0.75);
+  text-align: center;
+  line-height: 1.5;
+}
